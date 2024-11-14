@@ -9,19 +9,58 @@ function ForgotPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [emailValid, setEmailValid] = useState(true);
+  const [newPasswordValid, setNewPasswordValid] = useState(true);
+  const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [newPasswordTouched, setNewPasswordTouched] = useState(false);
+  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
+
   const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|br)$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => password.length >= 6;
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    setEmailTouched(true);
+
+    setEmailValid(validateEmail(value) || !value);
+  };
+
+  const handleNewPasswordChange = (e) => {
+    const value = e.target.value;
+    setNewPassword(value);
+    setNewPasswordTouched(true);
+
+    setNewPasswordValid(validatePassword(value) || !value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    setConfirmPasswordTouched(true);
+
+    setConfirmPasswordValid(value === newPassword);
+  };
 
   const handlePasswordReset = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
 
-    // Verificar se as senhas coincidem
     if (newPassword !== confirmPassword) {
+      setConfirmPasswordValid(false);
       setError("As senhas não coincidem.");
       return;
     }
 
     try {
-      // Endpoint de redefinição de senha
       const response = await axios.post("https://auth-coin-production.up.railway.app/auth/reset-password", {
         email,
         newPassword,
@@ -29,7 +68,7 @@ function ForgotPassword() {
 
       setSuccess("Senha redefinida com sucesso!");
       setTimeout(() => {
-        navigate("/"); // Redirecionar para a tela de login após sucesso
+        navigate("/");
       }, 2000);
     } catch (error) {
       setError("Erro ao redefinir a senha. Tente novamente.");
@@ -60,21 +99,27 @@ function ForgotPassword() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
+            onBlur={() => setEmailTouched(true)}
+            className={`email-input ${emailTouched && email ? (emailValid ? "input-success" : "input-error") : ""}`}
             required
           />
           <input
             type="password"
             placeholder="Nova Senha"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={handleNewPasswordChange}
+            onBlur={() => setNewPasswordTouched(true)}
+            className={`password-input ${newPasswordTouched && newPassword ? (newPasswordValid ? "input-success" : "input-error") : ""}`}
             required
           />
           <input
             type="password"
             placeholder="Confirme Nova Senha"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={handleConfirmPasswordChange}
+            onBlur={() => setConfirmPasswordTouched(true)}
+            className={`password-input ${confirmPasswordTouched && confirmPassword ? (confirmPasswordValid ? "input-success" : "input-error") : ""}`}
             required
           />
           {error && <div className="error-message">{error}</div>}

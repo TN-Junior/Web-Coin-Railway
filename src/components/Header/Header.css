@@ -43,3 +43,41 @@ html{
     margin-top: 1rem;
     margin-left: 4rem;
   }
+
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      height: auto;
+      padding: 1rem;
+      text-align: center;
+    }
+  
+    .search-bar {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  
+    .header input {
+      width: 80%;
+      height: 4vh;
+      margin: 0.5rem auto;
+    }
+  
+    .header button {
+      width: 60%;
+      height: 4vh;
+      margin: 0.5rem auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .header input,
+    .header button {
+      width: 90%;
+    }
+  
+    .header {
+      padding: 0.5rem;
+    }
+  }
+  

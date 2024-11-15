@@ -17,6 +17,7 @@
     "@react-spring/web": "^9.7.4",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.7",
+    "coin-frontend": "file:",
     "d3": "^7.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

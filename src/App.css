@@ -1,3 +1,4 @@
+/* Estilo padrão */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,23 +6,20 @@
   text-align: center;
 }
 
-/* Adicione isso no seu estilo global ou no estilo do layout da página principal */
 .ContainerGeral {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Garante que a página tenha a altura total da viewport */
 }
 
-/* Certifique-se de que o conteúdo abaixo do Header se ajuste corretamente */
 .main-content {
-  flex: 1; /* Faz com que o conteúdo principal ocupe o espaço restante */
-  overflow-y: auto; /* Permite rolagem se o conteúdo for muito grande */
+  flex: 1;
+  overflow-y: auto;
 }
 
-/* Para o Header, verifique a altura */
 .header {
   display: flex;
-  justify-content: space-between; /* Espaça a barra de pesquisa e o botão Fernanda F. */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 10vh;
@@ -35,9 +33,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -65,3 +65,80 @@
   color: #ffffff;
 }
 
+/* --- Media Queries para Responsividade --- */
+
+/* Media Query para telas menores que 768px */
+@media (max-width: 768px) {
+  #root {
+    max-width: 100%; /* Ajusta a largura para caber na tela */
+    padding: 1rem; /* Reduz o padding */
+    text-align: left;
+  }
+
+  .ContainerGeral {
+    height: auto; /* Remove a altura fixa */
+  }
+
+  .main-content {
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .header {
+    flex-direction: column; /* Alinha os itens verticalmente */
+    height: auto; /* Permite que o header cresça conforme necessário */
+    padding: 1rem; /* Ajusta o padding */
+    text-align: center; /* Centraliza o conteúdo */
+  }
+
+  .search-bar {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+
+  .header input {
+    width: 80%;
+    height: 4vh;
+    margin: 0.5rem auto;
+  }
+
+  .header button {
+    width: 60%;
+    height: 4vh;
+    margin: 0.5rem auto;
+  }
+
+  .logo {
+    height: 4em;
+    padding: 0.5em;
+  }
+
+  .card {
+    padding: 1em;
+  }
+
+  .read-the-docs {
+    font-size: 14px;
+  }
+}
+
+/* Media Query para telas ainda menores (como 480px) */
+@media (max-width: 480px) {
+  .header input,
+  .header button {
+    width: 90%;
+  }
+
+  .header {
+    padding: 0.5rem;
+  }
+
+  .logo {
+    height: 3em;
+  }
+
+  .card {
+    font-size: 12px;
+    padding: 0.5em;
+  }
+}
